@@ -1,3 +1,22 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { ProductsComponent } from './components/products';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'products',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: ProductsComponent,
+  },
+  {
+    path: 'trash',
+    loadComponent: () =>
+      import('./components/trash/trash.component').then(
+        (m) => m.TrashComponent
+      ),
+  },
+];
