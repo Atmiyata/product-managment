@@ -1,8 +1,8 @@
 <div class="layout">
   <div class="layout-sidebar">
     <ul>
-      <li><a href="#"><i class="pi pi-home"></i></a></li>
-      <li class="selected"><a href="#"><i class="pi pi-trash"></i></a></li>
+      <li [routerLink]="['/products']" routerLinkActive="selected"><a ><i class="pi pi-home"></i></a></li>
+      <li [routerLink]="['/trash']" routerLinkActive="selected"><a><i class="pi pi-trash"></i></a></li>
     </ul>
   </div>
   <div class="layout-main">

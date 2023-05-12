@@ -9,7 +9,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '',
+    path: 'products',
     component: ProductsComponent,
   },
   {
