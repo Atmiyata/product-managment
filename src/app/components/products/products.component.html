@@ -1,4 +1,10 @@
 <div class="container">
   <div class="container-header"></div>
-  <div class="container-body"></div>
+  <div class="container-body">
+    <div class="grid -mt-3 -ml-3 -mr-3">
+      <div class="col-12 md:col-6 lg:col-4" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+  </div>
+  </div>
 </div>
