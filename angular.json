@@ -73,6 +73,10 @@
             },
             "development": {
               "browserTarget": "product-managment:build:development"
+            },
+            "options": {
+              "browserTarget": "product-managment:build",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
