@@ -30,6 +30,7 @@
           padding: 10px;
           position: relative;
           color: #fff;
+          cursor: pointer;
 
           i {
             font-size: 20px;
@@ -62,6 +63,5 @@
     height: 100vh;
     width:calc(100% - 70px);
     margin-left:70px;
-    background-color: aqua;
   }
 }
