@@ -25,6 +25,15 @@
                 <textarea rows="5" cols="30" id="description" pInputTextarea class="w-full" placeholder="Description"
                   formControlName="description"></textarea>
               </div>
+
+              <div class="field col-12 md:col-6">
+                <label>Quantity</label>
+                <p-inputNumber class="w-full" formControlName="quantity" [showButtons]="true" buttonLayout="horizontal"
+                  spinnerMode="horizontal" [step]="1" decrementButtonClass="p-button-secondary"
+                  incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"></p-inputNumber>
+              </div>
+
               <div class="field col-12">
                 <h3>Inventory status</h3>
                 <div class="formgroup-inline mt-2">
@@ -43,12 +52,14 @@
                   </div>
                 </div>
               </div>
+
               <div class="field col-12 md:col-6">
                 <label>Category</label>
                 <p-dropdown formControlName="category" styleClass="w-full" inputId="inventoryStatus"
                   [options]="categories" placeholder="Select">
                 </p-dropdown>
               </div>
+
               <div class="field col-12 md:col-6">
                 <label>Price</label>
                 <p-inputNumber inputId="currency-us" id="price" mode="currency" currency="USD" locale="en-US"
@@ -57,9 +68,10 @@
 
               <div class="field col-12">
                 <div class="flex justify-content-center gap-2 mt-5">
-                  <p-button label="Save" icon="pi pi-save" styleClass="p-button-success"
-                    [disabled]="!productForm.valid"></p-button>
-                  <p-button label="Cancel" styleClass="p-button-raised p-button-text" icon="pi pi-times"></p-button>
+                  <p-button label="Save" icon="pi pi-save" styleClass="p-button-success" [disabled]="!productForm.valid"
+                    (onClick)="onSave()"></p-button>
+                  <p-button label="Cancel" styleClass="p-button-raised p-button-text" icon="pi pi-times"
+                    (onClick)="onNavigateBack()"></p-button>
                 </div>
               </div>
             </div>
