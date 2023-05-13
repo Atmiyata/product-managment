@@ -19,10 +19,10 @@ import { ProductService } from 'src/app/shared/services/product.service';
   selector: 'app-product-card',
   standalone: true,
   imports: [
+    FormsModule,
     CommonModule,
     RatingModule,
     ButtonModule,
-    FormsModule,
     NgOptimizedImage,
   ],
   templateUrl: './product-card.component.html',
@@ -36,6 +36,7 @@ export class ProductCardComponent {
   constructor(private productService: ProductService) {}
 
   softDelete(id: string) {
+    //Todo - add confirm modal
     this.onSoftDelete.emit(id);
   }
 }
