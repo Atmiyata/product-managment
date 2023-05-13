@@ -1,23 +1,32 @@
-.product-badge {
-  border-radius: var(--border-radius);
-  padding: .25em .5rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: .3px;
+.card{
+  cursor: pointer;
 
-  &.status-instock {
-      background: var(--green-200);
-      color: var(--green-800);
+  &:hover{
+    transform: scale(1.1);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
   }
 
-  &.status-outofstock {
-      background: var(--pink-200);
-      color: var(--pink-800);
-  }
+  .product-badge {
+    border-radius: var(--border-radius);
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
 
-  &.status-lowstock {
-      background: var(--yellow-200);
-      color: var(--yellow-800);
+    &.status-instock {
+        background: var(--green-200);
+        color: var(--green-800);
+    }
+
+    &.status-outofstock {
+        background: var(--pink-200);
+        color: var(--pink-800);
+    }
+
+    &.status-lowstock {
+        background: var(--yellow-200);
+        color: var(--yellow-800);
+    }
   }
 }
