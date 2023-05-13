@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { Product } from '../models/product';
 
@@ -29,6 +29,16 @@ export class TrashService {
 
   addTrashProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${this.domain}/trash`, product);
+  }
+
+  restoreProduct(product: Product) {
+    return this.http
+      .delete(`${this.domain}/products/${product.id}`)
+      .pipe(
+        switchMap(() =>
+          this.http.post<Product>(`${this.domain}/product`, product)
+        )
+      );
   }
 
   deleteTrashProduct(productId: string) {

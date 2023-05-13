@@ -28,11 +28,18 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Product } from 'src/app/shared/models/product';
 import { TrashService } from 'src/app/shared/services/trash.service';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { TrashCardComponent } from './trash-card';
 
 @Component({
   selector: 'app-trash',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonModule,
+    InputTextModule,
+    TrashCardComponent,
+  ],
   templateUrl: './trash.component.html',
   styleUrls: ['./trash.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,16 +52,37 @@ export class TrashComponent implements OnInit, OnDestroy {
   products$: Observable<Product[]> = of([]);
   fetchEvent$ = this.fetchEvent.asObservable();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private trashService: TrashService
+  ) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    const param: Params = this.activatedRoute.snapshot.queryParams;
+    this.searchVal = param['name'];
+
+    this.products$ = combineLatest([
+      this.fetchEvent$,
+      this.activatedRoute.queryParams,
+    ]).pipe(
+      debounceTime(200),
+      switchMap(([ev, param]: [any, Params]) =>
+        this.trashService.getTrashProducts(
+          param ? { search: param['name'] } : undefined
+        )
+      )
+    );
   }
 
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
     this.fetchEvent.complete();
+  }
+
+  trackByProduct(_: number, product: Product) {
+    return product?.id;
   }
 
   onSearch() {

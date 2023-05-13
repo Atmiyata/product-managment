@@ -3,11 +3,13 @@
 
     <input pInputText type="text" placeholder="Search name" [(ngModel)]="searchVal" (keyup)="onSearch()" />
   </div>
+
   <div class="container-body card">
     <div class="grid">
-      <div class="col-12 md:col-6 lg:col-4" >
-
+      <div class="col-12 md:col-6 lg:col-4" *ngFor="let product of (products$ | async);trackBy:trackByProduct">
+        <app-trash-card [product]="product" ></app-trash-card>
       </div>
   </div>
   </div>
+
 </div>
