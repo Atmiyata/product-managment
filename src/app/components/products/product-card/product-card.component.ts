@@ -1,3 +1,4 @@
+import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
@@ -11,11 +12,11 @@ import {
 
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { Product } from 'src/app/shared/models/product';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-card',
@@ -35,24 +36,25 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
-  @Output() onSoftDelete: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onSoftDelete: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private productService: ProductService,
     private confirmationService: ConfirmationService
   ) {}
 
-  softDelete(id: string) {
-    console.log('called');
+  softDelete(product: Product) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to proceed?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.onSoftDelete.emit(id);
+        this.productService
+          .softDelete(product)
+          .pipe(take(1))
+          .subscribe(() => this.onSoftDelete.emit());
       },
       reject: () => {},
     });
-    //Todo - add confirm modal
   }
 }

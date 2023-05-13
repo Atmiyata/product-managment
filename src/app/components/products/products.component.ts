@@ -20,6 +20,7 @@ import {
   debounceTime,
   combineLatest,
   BehaviorSubject,
+  take,
 } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
@@ -95,9 +96,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.fetchEvent.next(true);
   }
 
-  onSoftDelete(id: string) {
-    this.productService.softDelete(id);
-
+  onSoftDelete() {
     this.fetchEvent.next(true);
   }
 

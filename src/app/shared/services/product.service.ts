@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { Product } from '../models/product';
 
@@ -33,14 +33,14 @@ export class ProductService {
     return JSON.parse(productIds || '[]');
   }
 
-  softDelete(id: string): void {
-    const productIds = localStorage.getItem(this.localStorageKey);
-    let trashIds: string[] = this.getTrashProducts();
-    if (trashIds.includes(id)) return;
-
-    trashIds.push(id);
-
-    localStorage.setItem(this.localStorageKey, JSON.stringify(trashIds));
+  softDelete(product: Product) {
+    return this.http
+      .delete(`${this.domain}/products/${product.id}`)
+      .pipe(
+        switchMap(() =>
+          this.http.post<Product>(`${this.domain}/trash`, product)
+        )
+      );
   }
 
   addProduct(product: Product): Observable<Product> {
