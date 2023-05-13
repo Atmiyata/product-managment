@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -13,6 +13,7 @@ import { Product } from 'src/app/shared/models/product';
   imports: [CommonModule, RatingModule, ButtonModule, FormsModule],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;

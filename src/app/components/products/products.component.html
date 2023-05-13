@@ -2,7 +2,7 @@
   <div class="container-header"></div>
   <div class="container-body card">
     <div class="grid">
-      <div class="col-12 md:col-6 lg:col-4" *ngFor="let product of products$ | async">
+      <div class="col-12 md:col-6 lg:col-4" *ngFor="let product of (products$ | async);trackBy:trackByProduct">
         <app-product-card [product]="product"></app-product-card>
       </div>
   </div>
