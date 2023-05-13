@@ -1,6 +1,14 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Subject, switchMap, Observable, debounceTime } from 'rxjs';
+import {
+  of,
+  Subject,
+  switchMap,
+  Observable,
+  debounceTime,
+  combineLatest,
+  BehaviorSubject,
+} from 'rxjs';
 import {
   Params,
   Router,
@@ -37,18 +45,28 @@ import { ProductCardComponent } from './product-card';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject<void>();
+  private fetchEvent: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   searchVal: string = '';
-  products$: Observable<Product[]>;
+  products$: Observable<Product[]> = of([]);
+  fetchEvent$ = this.fetchEvent.asObservable();
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private productService: ProductService
-  ) {
-    this.products$ = this.activatedRoute.queryParams.pipe(
-      debounceTime(300),
-      switchMap((param: Params) =>
+  ) {}
+
+  ngOnInit(): void {
+    const param: Params = this.activatedRoute.snapshot.queryParams;
+    this.searchVal = param['name'];
+
+    this.products$ = combineLatest([
+      this.fetchEvent$,
+      this.activatedRoute.queryParams,
+    ]).pipe(
+      debounceTime(200),
+      switchMap(([ev, param]: [any, Params]) =>
         this.productService.getProducts(
           param ? { search: param['name'] } : undefined
         )
@@ -56,14 +74,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit(): void {
-    const param: Params = this.activatedRoute.snapshot.queryParams;
-    this.searchVal = param['name'];
-  }
-
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+    this.fetchEvent.complete();
   }
 
   trackByProduct(_: number, product: Product) {
@@ -71,15 +85,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   onAdd() {
-    this.productService.addProduct({
-      id: '1',
-      name: 'test product',
-      inventoryStatus: 'INSTOCK',
-    });
+    this.productService
+      .addProduct({
+        id: '1',
+        name: 'test product',
+        inventoryStatus: 'INSTOCK',
+      })
+      .subscribe(() => this.fetchEvent.next(true));
+    this.fetchEvent.next(true);
   }
 
   onSoftDelete(id: string) {
     this.productService.softDelete(id);
+
+    this.fetchEvent.next(true);
   }
 
   onSearch() {

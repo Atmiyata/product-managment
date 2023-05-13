@@ -1,3 +1,6 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgOptimizedImage } from '@angular/common';
 import {
   Input,
   Output,
@@ -5,8 +8,6 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +18,13 @@ import { ProductService } from 'src/app/shared/services/product.service';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, RatingModule, ButtonModule, FormsModule],
+  imports: [
+    CommonModule,
+    RatingModule,
+    ButtonModule,
+    FormsModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
