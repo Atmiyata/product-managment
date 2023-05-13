@@ -7,7 +7,7 @@
   <div class="container-body card">
     <div class="grid">
       <div class="col-12 md:col-6 lg:col-4" *ngFor="let product of (products$ | async);trackBy:trackByProduct">
-        <app-trash-card [product]="product" ></app-trash-card>
+        <app-trash-card [product]="product" (onRemove)="onRemove()" ></app-trash-card>
       </div>
   </div>
   </div>

@@ -100,4 +100,8 @@ export class TrashComponent implements OnInit, OnDestroy {
 
     this.router.navigate([], routeParams);
   }
+
+  onRemove() {
+    this.fetchEvent.next(true);
+  }
 }

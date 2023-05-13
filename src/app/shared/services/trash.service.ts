@@ -33,10 +33,10 @@ export class TrashService {
 
   restoreProduct(product: Product) {
     return this.http
-      .delete(`${this.domain}/products/${product.id}`)
+      .delete(`${this.domain}/trash/${product.id}`)
       .pipe(
         switchMap(() =>
-          this.http.post<Product>(`${this.domain}/product`, product)
+          this.http.post<Product>(`${this.domain}/products`, product)
         )
       );
   }

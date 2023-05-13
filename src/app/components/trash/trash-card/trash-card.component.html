@@ -10,14 +10,16 @@
     <div class="flex flex-column align-items-center text-center mb-3">
 
         <img [ngSrc]="'assets/images/products/' + product.image" width="225" height="150" [alt]="product.name" class="shadow-2 my-3 mx-0"/>
-
+        <span class="text-2xl font-light">${{product.price}}</span>
       <div class="text-2xl font-bold">{{product.name}}</div>
+
       <div class="mb-3">{{product.description}}</div>
       <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
     </div>
     <div class="flex align-items-center justify-content-between">
-      <span class="text-2xl font-semibold">${{product.price}}</span>
-      <p-button icon="pi pi-trash" styleClass="p-button-danger" (onClick)="onDelete(product.id)"></p-button>
+      <p-button icon="pi pi-file-export" styleClass="p-button-warning" label="Restore" (onClick)="onRestore(product)"></p-button>
+      <p-button icon="pi pi-trash" styleClass="p-button-danger" label="Remove" (onClick)="onDelete(product.id)"></p-button>
     </div>
   </div>
 </div>
+<p-confirmDialog></p-confirmDialog>
