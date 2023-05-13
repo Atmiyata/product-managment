@@ -11,6 +11,9 @@
     width: 100%;
     background-color: rgb(224, 230, 230);
     border-radius: 12px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
   }
 
   &-body {
