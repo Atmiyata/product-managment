@@ -31,9 +31,8 @@ import { ProductCardComponent } from './product-card';
 export class ProductsComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject<void>();
 
-  products$: Observable<Product[]>;
-
   searchVal: string = '';
+  products$: Observable<Product[]>;
 
   constructor(
     private router: Router,
@@ -50,6 +49,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
+  ngOnInit(): void {
+    const param: Params = this.activatedRoute.snapshot.queryParams;
+    this.searchVal = param['name'];
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  trackByProduct(_: number, product: Product) {
+    return product?.id;
+  }
+
   onSearch() {
     let routeParams: NavigationExtras = {
       relativeTo: this.activatedRoute,
@@ -64,19 +77,5 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
     this.router.navigate([], routeParams);
-  }
-
-  ngOnInit(): void {
-    const param: Params = this.activatedRoute.snapshot.queryParams;
-    this.searchVal = param['name'];
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
-
-  trackByProduct(_: number, product: Product) {
-    return product.id;
   }
 }

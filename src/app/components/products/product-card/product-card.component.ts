@@ -6,6 +6,7 @@ import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 
 import { Product } from 'src/app/shared/models/product';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,4 +18,10 @@ import { Product } from 'src/app/shared/models/product';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
+
+  constructor(private productService: ProductService) {}
+
+  softDelete(id: string) {
+    this.productService.softDelete(id);
+  }
 }
