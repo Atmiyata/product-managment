@@ -86,14 +86,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   onAdd() {
-    this.productService
+    this.router.navigate(['add'], { relativeTo: this.activatedRoute });
+    /* this.productService
       .addProduct({
         id: '1',
         name: 'test product',
         inventoryStatus: 'INSTOCK',
       })
-      .subscribe(() => this.fetchEvent.next(true));
-    this.fetchEvent.next(true);
+      .subscribe(() => this.fetchEvent.next(true)) */
+    // this.fetchEvent.next(true);
   }
 
   onSoftDelete() {
