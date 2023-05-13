@@ -10,12 +10,13 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
+import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-import { Product } from 'src/app/shared/models/product';
+import { InventoryStatus, Product } from 'src/app/shared/models/product';
 import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
@@ -24,8 +25,10 @@ import { ProductService } from 'src/app/shared/services/product.service';
   imports: [
     FormsModule,
     CommonModule,
+    TagModule,
     RatingModule,
     ButtonModule,
+
     NgOptimizedImage,
     ConfirmDialogModule,
   ],
@@ -37,6 +40,18 @@ import { ProductService } from 'src/app/shared/services/product.service';
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
   @Output() onSoftDelete: EventEmitter<void> = new EventEmitter<void>();
+
+  severityByInventoryStatus = {
+    [InventoryStatus.INSTOCK]: 'success',
+    [InventoryStatus.LOWSTOCK]: 'warning',
+    [InventoryStatus.OUTOFSTOCK]: 'danger',
+  };
+
+  labelByInventoryStatus = {
+    [InventoryStatus.INSTOCK]: 'IN STOCK',
+    [InventoryStatus.LOWSTOCK]: 'LOW STOCK',
+    [InventoryStatus.OUTOFSTOCK]: 'OUT OF STOCK',
+  };
 
   constructor(
     private productService: ProductService,

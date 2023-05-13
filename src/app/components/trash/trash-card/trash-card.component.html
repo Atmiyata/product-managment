@@ -5,11 +5,17 @@
         <i class="pi pi-tag mr-2"></i>
         <span class="font-semibold">{{product.category}}</span>
       </div>
-      <span [class]="'product-badge status-' + (product.inventoryStatus.toLowerCase())">{{product.inventoryStatus}}</span>
     </div>
     <div class="flex flex-column align-items-center text-center mb-3">
 
         <img [ngSrc]="'assets/images/products/' + product.image" width="225" height="150" [alt]="product.name" class="shadow-2 my-3 mx-0"/>
+
+        <p-tag *ngIf="product.inventoryStatus === 'INSTOCK'" [severity]="severityByInventoryStatus.INSTOCK">
+          {{labelByInventoryStatus.INSTOCK}}</p-tag>
+        <p-tag *ngIf="product.inventoryStatus === 'LOWSTOCK'" [severity]="severityByInventoryStatus.LOWSTOCK">
+          {{labelByInventoryStatus.LOWSTOCK}}</p-tag>
+        <p-tag *ngIf="product.inventoryStatus === 'OUTOFSTOCK'" [severity]="severityByInventoryStatus.OUTOFSTOCK">
+          {{labelByInventoryStatus.OUTOFSTOCK}}</p-tag>
         <span class="text-2xl font-light">${{product.price}}</span>
       <div class="text-2xl font-bold">{{product.name}}</div>
 
@@ -18,7 +24,7 @@
     </div>
     <div class="flex align-items-center justify-content-between">
       <p-button icon="pi pi-file-export" styleClass="p-button-warning" label="Restore" (onClick)="onRestore(product)"></p-button>
-      <p-button icon="pi pi-trash" styleClass="p-button-danger" label="Remove" (onClick)="onDelete(product.id)"></p-button>
+      <p-button icon="pi pi-trash" styleClass="p-button-danger" label="Remove" (onClick)="onDelete(product)"></p-button>
     </div>
   </div>
 </div>

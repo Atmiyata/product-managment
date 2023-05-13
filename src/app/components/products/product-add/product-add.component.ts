@@ -25,7 +25,7 @@ interface ProductForm {
   description?: FormControl<string>;
   price?: FormControl<number>;
   quantity: FormControl<number>;
-  inventoryStatus: FormControl<inventoryStatus>;
+  inventoryStatus?: FormControl<inventoryStatus>;
   category: FormControl<string>;
 }
 
@@ -81,7 +81,10 @@ export class ProductAddComponent {
       nonNullable: true,
       validators: [Validators.required, Validators.min(0)],
     }),
-    inventoryStatus: this.fb.control('INSTOCK', { nonNullable: true }),
+    inventoryStatus: this.fb.control('INSTOCK', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
     category: this.fb.control('', { nonNullable: true }),
   });
 
