@@ -1,15 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {
-  of,
-  Subject,
-  switchMap,
-  Observable,
-  debounceTime,
-  combineLatest,
-  BehaviorSubject,
-} from 'rxjs';
-import {
   Params,
   Router,
   ActivatedRoute,
@@ -21,6 +12,15 @@ import {
   Component,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import {
+  of,
+  Subject,
+  switchMap,
+  Observable,
+  debounceTime,
+  combineLatest,
+  BehaviorSubject,
+} from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
