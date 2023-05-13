@@ -13,25 +13,37 @@ interface ProductParam {
 })
 export class ProductService {
   private localStorageKey: string = 'trash';
-  private domain: string = 'http://localhost:4500/products';
+  private domain: string = 'http://localhost:4500';
 
   constructor(private http: HttpClient) {}
 
   getProducts(param?: ProductParam): Observable<Product[]> {
     const { search } = param || {};
-    if (search)
-      return this.http.get<Product[]>(`${this.domain}?name_like=${search}`);
 
-    return this.http.get<Product[]>(this.domain);
+    if (search)
+      return this.http.get<Product[]>(
+        `${this.domain}/products?name_like=${search}`
+      );
+
+    return this.http.get<Product[]>(`${this.domain}/products`);
   }
 
   getTrashProducts() {
-    return localStorage.getItem(this.localStorageKey);
+    const productIds = localStorage.getItem(this.localStorageKey);
+    return JSON.parse(productIds || '[]');
   }
 
-  softDelete(id: string) {
-    const val = localStorage.getItem(this.localStorageKey);
-    console.log(val, 'val');
-    localStorage.setItem(this.localStorageKey, JSON.stringify([id]));
+  softDelete(id: string): void {
+    const productIds = localStorage.getItem(this.localStorageKey);
+    let trashIds: string[] = this.getTrashProducts();
+    if (trashIds.includes(id)) return;
+
+    trashIds.push(id);
+
+    localStorage.setItem(this.localStorageKey, JSON.stringify(trashIds));
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.domain}/products`, product);
   }
 }

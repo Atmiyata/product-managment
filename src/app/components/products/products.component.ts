@@ -14,6 +14,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 
+import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { Product } from 'src/app/shared/models/product';
@@ -23,7 +24,13 @@ import { ProductCardComponent } from './product-card';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, FormsModule, InputTextModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ButtonModule,
+    InputTextModule,
+    ProductCardComponent,
+  ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,6 +68,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   trackByProduct(_: number, product: Product) {
     return product?.id;
+  }
+
+  onAdd() {
+    this.productService.addProduct({
+      id: '1',
+      name: 'test product',
+      inventoryStatus: 'INSTOCK',
+    });
+  }
+
+  onSoftDelete(id: string) {
+    this.productService.softDelete(id);
   }
 
   onSearch() {

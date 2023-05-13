@@ -1,5 +1,6 @@
 <div class="container">
   <div class="container-header">
+    <p-button icon="pi pi-plus" styleClass="p-button-secondary" label="ADD" (onClick)="onAdd()"></p-button>
     <input pInputText type="text" placeholder="Search name" [(ngModel)]="searchVal" (keyup)="onSearch()" />
   </div>
   <div class="container-body card">

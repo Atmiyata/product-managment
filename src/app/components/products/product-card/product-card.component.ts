@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  Input,
+  Output,
+  Component,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,10 +24,11 @@ import { ProductService } from 'src/app/shared/services/product.service';
 })
 export class ProductCardComponent {
   @Input({ required: true }) product!: Product;
+  @Output() onSoftDelete: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private productService: ProductService) {}
 
   softDelete(id: string) {
-    this.productService.softDelete(id);
+    this.onSoftDelete.emit(id);
   }
 }
