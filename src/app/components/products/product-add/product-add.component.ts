@@ -1,13 +1,13 @@
 import { take } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
+  Validators,
   FormBuilder,
   FormControl,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';

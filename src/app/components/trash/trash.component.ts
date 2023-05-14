@@ -27,7 +27,6 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { Product } from 'src/app/shared/models/product';
 import { TrashService } from 'src/app/shared/services/trash.service';
-
 import { TrashCardComponent } from './trash-card';
 
 @Component({

@@ -16,19 +16,18 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-import { InventoryStatus, Product } from 'src/app/shared/models/product';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { InventoryStatus, Product } from 'src/app/shared/models/product';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
   imports: [
+    TagModule,
     FormsModule,
     CommonModule,
-    TagModule,
     RatingModule,
     ButtonModule,
-
     NgOptimizedImage,
     ConfirmDialogModule,
   ],
