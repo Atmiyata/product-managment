@@ -15,6 +15,7 @@ import {
 import {
   of,
   Subject,
+  takeUntil,
   switchMap,
   Observable,
   debounceTime,
@@ -65,6 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.fetchEvent$,
       this.activatedRoute.queryParams,
     ]).pipe(
+      takeUntil(this.destroyed$),
       debounceTime(200),
       switchMap(([ev, param]: [any, Params]) =>
         this.productService.getProducts(

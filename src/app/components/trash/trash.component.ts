@@ -20,6 +20,7 @@ import {
   debounceTime,
   combineLatest,
   BehaviorSubject,
+  takeUntil,
 } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
@@ -65,6 +66,7 @@ export class TrashComponent implements OnInit, OnDestroy {
       this.fetchEvent$,
       this.activatedRoute.queryParams,
     ]).pipe(
+      takeUntil(this.destroyed$),
       debounceTime(200),
       switchMap(([ev, param]: [any, Params]) =>
         this.trashService.getTrashProducts(
